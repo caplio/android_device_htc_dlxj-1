@@ -38,7 +38,11 @@ PRODUCT_COPY_FILES += \
     device/htc/dlxj/recovery/sbin/offmode_charging:recovery/root/sbin/offmode_charging
 
 # Get the sample verizon list of APNs
-PRODUCT_COPY_FILES += device/sample/etc/apns-conf_verizon.xml:system/etc/apns-conf.xml
+#PRODUCT_COPY_FILES += device/sample/etc/apns-conf_verizon.xml:system/etc/apns-conf.xml
+
+# Thermal config
+PRODUCT_COPY_FILES += \
+    device/htc/dlxj/configs/thermald.conf:system/etc/thermald.conf
 
 # NFCEE access control
 ifeq ($(TARGET_BUILD_VARIANT),user)
@@ -142,18 +146,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
     dalvik.vm.dexopt-flags=m=y \
     ro.com.google.clientidbase=android-htc \
-    ro.com.google.clientidbase.yt=android-verizon \
-    ro.com.google.clientidbase.am=android-verizon \
+    ro.com.google.clientidbase.yt=android-htc \
+    ro.com.google.clientidbase.am=android-kddi-jp \
     ro.com.google.clientidbase.gmm=android-htc \
-    ro.com.google.clientidbase.ms=android-verizon \
-    gsm.sim.operator.alpha = Verizon \
-    gsm.sim.operator.numeric = 310012 \
-    gsm.sim.operator.iso-country = us \
-    gsm.operator.alpha = Verizon \
-    gsm.operator.numeric = 310012 \
-    gsm.operator.iso-country = us \
-    ro.cdma.home.operator.alpha = Verizon \
-    ro.cdma.home.operator.numeric = 310012 \
+    ro.com.google.clientidbase.ms=android-kddi-jp \
+    gsm.sim.operator.alpha = KDDI \
+    gsm.sim.operator.numeric = 44050 \
+    gsm.sim.operator.iso-country = jp \
+    gsm.operator.alpha = KDDI \
+    gsm.operator.numeric = 44050 \
+    gsm.operator.iso-country = jp \
+    ro.cdma.home.operator.alpha = KDDI \
+    ro.cdma.home.operator.numeric = 44050 \
     ro.cdma.data_retry_config=max_retries=infinite,0,0,60000,120000,480000,900000 \
     ro.ril.set.mtusize=1428
 
