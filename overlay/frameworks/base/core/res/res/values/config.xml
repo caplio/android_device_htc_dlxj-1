@@ -39,6 +39,7 @@
     <!-- Close low battery warning when battery level reaches this value -->
     <integer name="config_lowBatteryCloseWarningLevel">15</integer>
 
+    <bool name="config_automatic_brightness_available">true</bool>
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N + 1 zones as follows:
 
