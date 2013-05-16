@@ -53,7 +53,7 @@ camera_module_t HAL_MODULE_INFO_SYM = {
          version_major: 1,
          version_minor: 0,
          id: CAMERA_HARDWARE_MODULE_ID,
-         name: "M7 Camera Wrapper",
+         name: "DLX Camera Wrapper",
          author: "The CyanogenMod Project",
          methods: &camera_module_methods,
          dso: NULL, /* remove compilation warnings */
@@ -96,17 +96,9 @@ static char * camera_fixup_getparams(int id, const char * settings)
     params.unflatten(android::String8(settings));
 
     // fix params here
-
-    /* Back Camera */
-    if (id == 0) {
-        params.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES, "1280x720,960x720,800x480,768x464,768x432,720x480,640x480,640x384,640x368,576x432,480x320,384x288,352x288,320x240,240x160,176x144");
-        params.set(android::CameraParameters::KEY_SUPPORTED_PICTURE_SIZES, "2688x1520,2592x1456,2048x1520,2048x1216,2048x1152,1600x1200,1600x896,1280x960,1280x768,1280x720,1024x768,800x600,800x480,640x480,640x384,640x368,352x288,320x240,176x144");
-
-    /* Front Camera */
-    } else {
-        params.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES, "1280x720,960x720,800x480,768x464,768x432,720x480,640x480,640x384,640x368,576x432,480x320,384x288,352x288,320x240,240x160,176x144");
-        params.set(android::CameraParameters::KEY_SUPPORTED_PICTURE_SIZES, "1600x896,1280x960,1280x768,1280x720,1024x768,800x600,800x480,640x480,640x384,640x368,352x288,320x240,176x144");
-    }
+    params.set(android::CameraParameters::KEY_FACE_DETECTION, "off");
+    params.set(android::CameraParameters::KEY_MAX_NUM_DETECTED_FACES_HW, "0");
+    params.set(android::CameraParameters::KEY_MAX_NUM_DETECTED_FACES_SW, "0");
 
     android::String8 strParams = params.flatten();
     char *ret = strdup(strParams.string());
@@ -117,46 +109,32 @@ static char * camera_fixup_getparams(int id, const char * settings)
 
 char * camera_fixup_setparams(int id, const char * settings)
 {
-    const char KEY_HTC_CAMERA_MODE[] = "cam-mode";
+    const char* captureMode = "normal";
 
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
 
     // fix params here
-    const char* previewSize = params.get(android::CameraParameters::KEY_PREVIEW_SIZE);
-    const char* pictureSize = params.get(android::CameraParameters::KEY_PICTURE_SIZE);
+    params.set(android::CameraParameters::KEY_FACE_DETECTION, "off");
+    params.set(android::CameraParameters::KEY_MAX_NUM_DETECTED_FACES_HW, "0");
+    params.set(android::CameraParameters::KEY_MAX_NUM_DETECTED_FACES_SW, "0");
 
-    params.set(android::CameraParameters::KEY_GPU_EFFECT, "0_bypass"); // Bypass
-    params.set(android::CameraParameters::KEY_GPU_EFFECT_PARAM_0, "0,0,0,0");
-    params.set(android::CameraParameters::KEY_GPU_EFFECT_PARAM_1, "0,0,0,0");
-    params.set(android::CameraParameters::KEY_GPU_EFFECT_PARAM_2, "");
-    params.set(android::CameraParameters::KEY_GPU_EFFECT_PARAM_3, "0,0,0,0");
+    if(params.get(android::CameraParameters::KEY_CAPTURE_MODE))
+        captureMode = params.get(android::CameraParameters::KEY_CAPTURE_MODE);
 
-    /* Back Camera */
-    if (id == 0) {
-        if(!params.get(android::CameraParameters::KEY_CAPTURE_MODE))
-            params.set(android::CameraParameters::KEY_CAPTURE_MODE, "normal");
+    if(id == 0) {
+            /* Hardware HDR */
+            params.set(android::CameraParameters::KEY_CONTIBURST_TYPE, "unlimited");
 
-        params.set(android::CameraParameters::KEY_CONTIBURST_TYPE, "unlimited");
-        params.set(android::CameraParameters::KEY_OIS_SUPPORT, "false");
-        params.set(android::CameraParameters::KEY_OIS_MODE, "off");
+            if(strcmp(captureMode, "normal") == 0) {
+                ALOGI("Capture-Mode: Normal.");
 
-        /* ZSL */
-        if(params.get(KEY_HTC_CAMERA_MODE)) {
-            const char* camMode = params.get(KEY_HTC_CAMERA_MODE);
-            if(strcmp(camMode, "0") == 0) {
-                ALOGI("ZSL mode enabled.");
+                /* ZSL */
+                ALOGI("ZSL-Mode: enabled");
                 params.set(android::CameraParameters::KEY_ZSL, "on");
                 params.set(android::CameraParameters::KEY_CAMERA_MODE, "1");
             }
-        }
-    } 
-
-    if(strcmp(previewSize, "1920x1088") == 0 || strcmp(previewSize, "1440x1088") == 0 || strcmp(previewSize, "1088x1088") == 0)
-        params.set(android::CameraParameters::KEY_PREVIEW_SIZE, "1280x720");
-
-    if(strcmp(previewSize, "960x544") == 0)
-        params.set(android::CameraParameters::KEY_PREVIEW_SIZE, "960x720");
+     }
 
     android::String8 strParams = params.flatten();
     char *ret = strdup(strParams.string());
