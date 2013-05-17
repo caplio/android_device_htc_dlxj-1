@@ -47,6 +47,7 @@ TARGET_KERNEL_VERSION := 3.4
 TARGET_KERNEL_CONFIG := deluxe_j_defconfig
 TARGET_KERNEL_SOURCE := kernel/htc/dlxj-$(TARGET_KERNEL_VERSION)
 TARGET_PREBUILT_KERNEL := device/htc/dlxj/prebuilt/kernel
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := linaro
 
 # Camera
 USE_CAMERA_STUB := false
