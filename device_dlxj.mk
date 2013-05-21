@@ -42,7 +42,8 @@ PRODUCT_COPY_FILES += \
 
 # Thermal config
 PRODUCT_COPY_FILES += \
-    device/htc/dlxj/configs/thermald.conf:system/etc/thermald.conf
+    device/htc/dlxj/configs/thermald.conf:system/etc/thermald.conf \
+    device/htc/dlxj/configs/thermald_boot.conf:system/etc/thermald_boot.conf
 
 # NFCEE access control
 ifeq ($(TARGET_BUILD_VARIANT),user)
