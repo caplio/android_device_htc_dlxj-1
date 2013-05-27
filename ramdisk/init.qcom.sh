@@ -234,8 +234,8 @@ case "$target" in
         platformvalue=`cat /sys/devices/system/soc/soc0/hw_platform`
         case "$platformvalue" in
             "Fluid")
-                echo 1 > /data/system/sensors/settings
-                start sensors
+        #        echo 1 > /data/system/sensors/settings
+        #        start sensors
                 setprop ro.sf.lcd_density 240
                 start profiler_daemon;;
             "Dragon")
@@ -249,8 +249,8 @@ case "$target" in
         chmod 220 /sys/devices/platform/msm_hsusb/gadget/wakeup
         ;;
     "msm8960")
-	echo 1 > /data/system/sensors/settings
-	start sensors
+	#echo 1 > /data/system/sensors/settings
+	#start sensors
 	chown root.system /sys/devices/platform/msm_otg/msm_hsusb/gadget/wakeup
 	chmod 220 /sys/devices/platform/msm_otg/msm_hsusb/gadget/wakeup
 
