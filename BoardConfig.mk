@@ -24,8 +24,8 @@
 # variant, so that it gets overwritten by the parent (which goes
 # against the traditional rules of inheritance).
 
-# inherit from common apq8064
--include device/htc/apq8064-common/BoardConfigCommon.mk
+# inherit from common msm8960
+-include device/htc/msm8960-common/BoardConfigCommon.mk
 
 TARGET_SPECIFIC_HEADER_PATH := device/htc/dlx/include
 
@@ -49,6 +49,16 @@ TARGET_KERNEL_SOURCE := kernel/htc/dlxj-$(TARGET_KERNEL_VERSION)
 TARGET_PREBUILT_KERNEL := device/htc/dlxj/prebuilt/kernel
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := linaro
 
+# We use the old ION API still
+BOARD_HAVE_OLD_ION_API := true
+
+# Audio
+BOARD_USES_FLUENCE_INCALL := true
+BOARD_USES_SEPERATED_AUDIO_INPUT := true
+BOARD_USES_SEPERATED_VOICE_SPEAKER := true
+TARGET_USES_QCOM_MM_AUDIO := true
+TARGET_USES_QCOM_COMPRESSED_AUDIO := true 
+
 # Camera
 USE_CAMERA_STUB := false
 TARGET_PROVIDES_CAMERA_HAL := true
@@ -67,9 +77,6 @@ BOARD_BLUETOOTH_USES_HCIATTACH_PROPERTY := false
 
 # Use libril in the device tree
 BOARD_PROVIDES_LIBRIL := true
-
-# HTClog
-COMMON_GLOBAL_CFLAGS += -DHTCLOG
 
 # Lights
 TARGET_PROVIDES_LIBLIGHTS := true
