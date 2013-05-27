@@ -49,9 +49,6 @@ TARGET_KERNEL_SOURCE := kernel/htc/dlxj-$(TARGET_KERNEL_VERSION)
 TARGET_PREBUILT_KERNEL := device/htc/dlxj/prebuilt/kernel
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := linaro
 
-# We use the old ION API still
-BOARD_HAVE_OLD_ION_API := true
-
 # Audio
 BOARD_USES_FLUENCE_INCALL := true
 BOARD_USES_SEPERATED_AUDIO_INPUT := true
