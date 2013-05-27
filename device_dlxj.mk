@@ -43,7 +43,8 @@ PRODUCT_COPY_FILES += \
 # Thermal config
 PRODUCT_COPY_FILES += \
     device/htc/dlxj/configs/thermald.conf:system/etc/thermald.conf \
-    device/htc/dlxj/configs/thermald_boot.conf:system/etc/thermald_boot.conf
+    device/htc/dlxj/configs/thermald_boot.conf:system/etc/thermald_boot.conf \
+    device/htc/dlxj/configs/pnp.xml:system/etc/pnp.xml
 
 # NFCEE access control
 ifeq ($(TARGET_BUILD_VARIANT),user)
@@ -182,4 +183,4 @@ PRODUCT_LOCALES += en_US
 $(call inherit-product-if-exists, vendor/htc/dlxj/dlxj-vendor.mk)
 
 # call dalvik heap config
-$(call inherit-product-if-exists, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+$(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
