@@ -132,6 +132,10 @@ PRODUCT_PACKAGES += \
     Tag \
     com.android.nfc_extras
 
+# FMRadio
+PRODUCT_PACKAGES += \
+    FM
+
 # Torch
 PRODUCT_PACKAGES += \
     Torch
