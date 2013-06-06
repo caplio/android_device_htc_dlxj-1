@@ -167,11 +167,7 @@ on init
 
 # on emmc mount the partition containing firmware
 on fs
-   mkdir /host_data 0771 system system
    mount_all /fstab.dlxj
-
-   mkdir /data 0771 system system
-   mount ext4 loop@/host_data/media/userdata.img /data
 
    setprop ro.crypto.fuse_sdcard true
 
